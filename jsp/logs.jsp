@@ -15,6 +15,14 @@ Level newLevel = logger.getLevel();
 logger.log(newLevel, "ADMIN: new level set");
 %>
 
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bonita Live Logger Level Configuration</title>
+</head>
+
+<body>
 <h1>Bonita Live Logger Level Configuration</h1>
 
 Requested logger: <b><%= loggerName %></b><br/>
@@ -24,4 +32,8 @@ Requested level: <b><%= loggerLevel %></b>
 Actual logger: <b><%= logger.getName() %></b><br/>
 Orig log level: <b><%= originalLogLevel %></b><br/>
 New log level: <b><%= newLevel %></b>
+</body>
+
+</html>
+
 
