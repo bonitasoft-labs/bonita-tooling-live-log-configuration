@@ -20,7 +20,7 @@ Level originalLogLevel = logger.getLevel();
 logger.setLevel(Level.parse(loggerLevel));
 Level newLevel = logger.getLevel();
 
-logger.log(newLevel, "ADMIN: new level set");
+logger.log(newLevel, "{BONITA TOOLING LOGGER JSP} new log level set");
 %>
 
 
@@ -43,5 +43,3 @@ New log level: <b><%= newLevel %></b>
 </body>
 
 </html>
-
-

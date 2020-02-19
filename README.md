@@ -60,5 +60,5 @@ The page displays information about the current logger settings and the new sett
 
 In the bonita.log, you will see something like
 ```
-2020-02-18 15:26:16.602 +0100 FINE: com.bonitasoft.message.MyLogger ADMIN: new level set
+2020-02-18 15:26:16.602 +0100 FINE: com.bonitasoft.message.MyLogger {BONITA TOOLING LOGGER JSP} new log level set
 ```
