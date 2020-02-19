@@ -13,32 +13,44 @@ import org.bonitasoft.web.extension.rest.RestAPIContext
 import org.bonitasoft.web.extension.rest.RestApiController
 import org.bonitasoft.web.extension.rest.RestApiResponse
 import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import java.util.logging.Level
+import java.util.logging.Logger
 
 class Index implements RestApiController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Index.class)
 
     @Override
     RestApiResponse doHandle(HttpServletRequest request, RestApiResponseBuilder responseBuilder, RestAPIContext context) {
         // To retrieve query parameters use the request.getParameter(..) method.
         // Be careful, parameter values are always returned as String values
 
-        // Retrieve p parameter
-        /*
-		def p = request.getParameter "p"
-        if (p == null) {
-            return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the parameter p is missing"}""")
+        // parameters retrieval
+		def loggerName = request.getParameter 'loggerName'
+        if (loggerName == null) {
+            return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the 'loggerName' parameter is missing"}""")
         }
-        */
-		
+		def loggerLevel = request.getParameter 'loggerLevel'
+        if (loggerLevel == null) {
+            return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,"""{"error" : "the 'loggerLevel' parameter is missing"}""")
+        }
+
+
+        Logger logger = Logger.getLogger(loggerName);
+        Level originalLogLevel = logger.getLevel();
+        logger.log(originalLogLevel, "{BONITA TOOLING LOGGER REST API} prepare new log level setting");
+        logger.setLevel(Level.parse(loggerLevel));
+        Level newLogLevel = logger.getLevel();
+
+        logger.log(newLogLevel, "{BONITA TOOLING LOGGER REST API} new log level set. Original: ${originalLogLevel} / New: ${newLogLevel}");
 
 		def result = [:]
-        result['loggerLevel'] = 'to be defined'
+        result['requestedLoggerName'] = loggerName
+        result['requestedLoggerLevel'] = loggerLevel
+        result['actualLoggerName'] = logger.name
+        result['originalLogLevel'] = originalLogLevel?.name
+        result['newLogLevel'] = newLogLevel?.name
 
 		
         // Send the result as a JSON representation
