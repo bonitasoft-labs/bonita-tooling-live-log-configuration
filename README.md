@@ -18,7 +18,11 @@ providing
 - logger name
 - logger level, see [JUL Level](https://docs.oracle.com/javase/8/docs/api/java/util/logging/Level.html) for valid values
 
-They have been tested with Bonita 7.8.4 Enterprise but should work with 7.7+ and Community edition.
+Also remember that depending of the configuration, logs message are written in the bonita.log or catalina.log
+depending the log handler loggers are associated to. 
+
+
+Tools have been tested with Bonita 7.8.4 Enterprise but should work with earlier versions and Community edition.
 
 
 **Note**: not tested with the Bonita Wildfly Bundle, it may works with minor adjustments
