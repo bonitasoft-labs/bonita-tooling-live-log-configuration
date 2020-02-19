@@ -73,7 +73,7 @@
                         </goals>
                         <inherited>false</inherited>
                         <configuration>
-                            <finalName>${project.build.finalName}-${project.version}</finalName>
+                            <finalName>bonita-tooling-log-level-updater</finalName>
                             <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
