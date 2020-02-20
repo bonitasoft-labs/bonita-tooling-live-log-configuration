@@ -6,10 +6,39 @@ For commercial licensing information, contact:
 Bonitasoft, 32 rue Gustave Eiffel – 38000 Grenoble
 or Bonitasoft US, 51 Federal Street, Suite 305, San Francisco, CA 94107
 -->
-<%@page import="java.util.logging.*" %>
-<%@page import="org.bonitasoft.engine.session.*" %>
-<%@page import="java.io.*,java.util.*" %>
+<%@page import="java.util.Enumeration" %>
+<%@page import="java.util.List" %>
+<%@page import="java.util.Locale,java.util.logging.Level" %>
+<%@ page import="java.util.logging.Logger" %>
+<%@ page import="org.bonitasoft.engine.session.*" %>
 <%
+	Logger jspLogger = Logger.getLogger("org.bonitasoft.tooling.log.jsp");
+	jspLogger.setLevel(Level.INFO); // ensure logs are generated
+
+	// Authorization checks
+	APISession apiSession = (APISession) session.getAttribute("apiSession");
+	if (apiSession == null) {
+		jspLogger.log(Level.WARNING, "Unauthenticated user tried to access to the Logger Level configuration");
+		response.sendError(403);
+		return;
+	}
+	String userName = (String) session.getAttribute("username");
+	List<String> profiles = apiSession.getProfiles();
+	boolean isAdministrator = profiles.contains("Administrator");
+	// TODO accept tenant administrator
+
+	if (!isAdministrator) {
+		jspLogger.log(Level.WARNING, "Non Administrator '" + userName + "' user tried to access to the Logger Level configuration");
+		response.sendError(403);
+		return;
+	}
+
+
+// TODO log user id if available in org.bonitasoft.web.rest.model.user.User
+//	org.bonitasoft.web.rest.model.user.User
+
+
+
 String loggerName = request.getParameter("loggerName");
 String loggerLevel = request.getParameter("loggerLevel");
 
@@ -32,6 +61,10 @@ boolean isLoggerInfoOnly = loggerLevel == null;
 
 <body>
 <h1>Bonita Live Logger Level Configuration</h1>
+
+<b>User</b>: <%= userName %><br/>
+<b>isAdministrator</b>: <%= isAdministrator %><br/>
+<p>
 
 <% if (isLoggerInfoOnly) { %>
 Providing logger info only<p>
@@ -90,21 +123,13 @@ New log level: <b><%= newLogLevel %></b>
 Profiles
 
 <%
-// TODO manage null session --> 401
-APISession apiSession = (APISession) session.getAttribute("apiSession");
-List<String> profiles = apiSession.getProfiles();
 
 out.println("<ul>");
 for(String profile: profiles) {
     out.println("<li> " + profile + "</li>");
 }
 out.println("</ul>");
-// TODO display current username on top of the page
-// TODO log user id if available in org.bonitasoft.web.rest.model.user.User
-
 %>
-
-Authorized: <%= profiles.contains("Administrator") %>
 
 
 <p>
