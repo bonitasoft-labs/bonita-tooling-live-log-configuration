@@ -90,8 +90,12 @@ Loggable levels:
     logger.setLevel(Level.parse(loggerLevel));
     Level newLogLevel = logger.getLevel();
 	String actualLoggerName = logger.getName();
-    jspLogger.log(newLogLevel, "User '" + userName + "' set the log level of logger " + actualLoggerName + " from " + originalLogLevel + " to " + newLogLevel);
+    jspLogger.log(Level.INFO, "User '" + userName + "' set the log level of logger " + actualLoggerName + " from " + originalLogLevel + " to " + newLogLevel);
 %>
+
+<b>Logger Level change</b>
+<p/>
+
 Requested logger: <b><%= loggerName %></b><br/>
 Requested level: <b><%= loggerLevel %></b>
 <p/>
