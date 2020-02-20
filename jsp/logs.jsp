@@ -6,11 +6,10 @@ For commercial licensing information, contact:
 Bonitasoft, 32 rue Gustave Eiffel – 38000 Grenoble
 or Bonitasoft US, 51 Federal Street, Suite 305, San Francisco, CA 94107
 -->
-<%@page import="java.util.Enumeration" %>
 <%@page import="java.util.List" %>
-<%@page import="java.util.Locale,java.util.logging.Level" %>
-<%@ page import="java.util.logging.Logger" %>
-<%@ page import="org.bonitasoft.engine.session.*" %>
+<%@page import="java.util.logging.Level" %>
+<%@page import="java.util.logging.Logger" %>
+<%@page import="org.bonitasoft.engine.session.*" %>
 <%
 	Logger jspLogger = Logger.getLogger("org.bonitasoft.tooling.log.jsp");
 	jspLogger.setLevel(Level.INFO); // ensure logs are generated
@@ -33,16 +32,11 @@ or Bonitasoft US, 51 Federal Street, Suite 305, San Francisco, CA 94107
 		return;
 	}
 
-
-// TODO log user id if available in org.bonitasoft.web.rest.model.user.User
-//	org.bonitasoft.web.rest.model.user.User
-
 	String loggerName = request.getParameter("loggerName");
 	if (loggerName == null) {
 		response.sendError(400, "The loggerName parameter is mandatory");
 		return;
 	}
-
 
 	String loggerLevel = request.getParameter("loggerLevel");
 	Logger logger = Logger.getLogger(loggerName);
