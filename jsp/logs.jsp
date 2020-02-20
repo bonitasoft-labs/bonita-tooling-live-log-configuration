@@ -7,6 +7,7 @@ Bonitasoft, 32 rue Gustave Eiffel – 38000 Grenoble
 or Bonitasoft US, 51 Federal Street, Suite 305, San Francisco, CA 94107
 -->
 <%@page import="java.util.logging.*" %>
+<%@page import="org.bonitasoft.engine.session.*" %>
 <%@page import="java.io.*,java.util.*" %>
 <%
 String loggerName = request.getParameter("loggerName");
@@ -86,11 +87,26 @@ New log level: <b><%= newLogLevel %></b>
 </table>
 
 <p>
-apiSession
-permissions
-api_token
-user
-username
+Profiles
+
+<%
+// TODO manage null session --> 401
+APISession apiSession = (APISession) session.getAttribute("apiSession");
+List<String> profiles = apiSession.getProfiles();
+
+out.println("<ul>");
+for(String profile: profiles) {
+    out.println("<li> " + profile + "</li>");
+}
+out.println("</ul>");
+// TODO display current username on top of the page
+// TODO log user id if available in org.bonitasoft.web.rest.model.user.User
+
+%>
+
+Authorized: <%= profiles.contains("Administrator") %>
+
+
 <p>
 
 
