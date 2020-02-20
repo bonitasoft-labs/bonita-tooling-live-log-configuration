@@ -37,19 +37,18 @@ or Bonitasoft US, 51 Federal Street, Suite 305, San Francisco, CA 94107
 // TODO log user id if available in org.bonitasoft.web.rest.model.user.User
 //	org.bonitasoft.web.rest.model.user.User
 
+	String loggerName = request.getParameter("loggerName");
+	if (loggerName == null) {
+		response.sendError(400, "The loggerName parameter is mandatory");
+		return;
+	}
 
 
-String loggerName = request.getParameter("loggerName");
-String loggerLevel = request.getParameter("loggerLevel");
+	String loggerLevel = request.getParameter("loggerLevel");
+	Logger logger = Logger.getLogger(loggerName);
+	Level originalLogLevel = logger.getLevel();
 
-// TODO mandatory field
-loggerName = loggerName != null ? loggerName: "NO_LOGGER_NAME";
-
-
-Logger logger = Logger.getLogger(loggerName);
-Level originalLogLevel = logger.getLevel();
-
-boolean isLoggerInfoOnly = loggerLevel == null;
+	boolean isLoggerInfoOnly = loggerLevel == null;
 %>
 
 
@@ -62,15 +61,20 @@ boolean isLoggerInfoOnly = loggerLevel == null;
 <body>
 <h1>Bonita Live Logger Level Configuration</h1>
 
-<b>User</b>: <%= userName %><br/>
+User: <b><%= userName %></b><br/>
 <b>isAdministrator</b>: <%= isAdministrator %><br/>
 <p>
 
-<% if (isLoggerInfoOnly) { %>
-Providing logger info only<p>
+<% if (isLoggerInfoOnly) {
+	jspLogger.log(Level.INFO, "User '" + userName + "' accessed to the Logger Level configuration - Information only");
+%>
+<b>Providing logger info only</b>
+<p/>
 
 Logger: <b><%= loggerName %></b><br/>
 Log level: <b><%= originalLogLevel %></b><br/>
+<p/>
+
 Loggable levels:
 <ul>
     <li><%= Level.SEVERE %>: <%= logger.isLoggable(Level.SEVERE) %>
