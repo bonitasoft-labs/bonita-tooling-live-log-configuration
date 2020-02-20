@@ -11,16 +11,14 @@ or Bonitasoft US, 51 Federal Street, Suite 305, San Francisco, CA 94107
 String loggerName = request.getParameter("loggerName");
 String loggerLevel = request.getParameter("loggerLevel");
 
-
+// TODO mandatory field
 loggerName = loggerName != null ? loggerName: "NO_LOGGER_NAME";
-loggerLevel = loggerLevel != null ? loggerLevel: "WARNING";
+
 
 Logger logger = Logger.getLogger(loggerName);
 Level originalLogLevel = logger.getLevel();
-logger.setLevel(Level.parse(loggerLevel));
-Level newLevel = logger.getLevel();
 
-logger.log(newLevel, "{BONITA TOOLING LOGGER JSP} new log level set");
+boolean isLoggerInfoOnly = loggerLevel == null;
 %>
 
 
@@ -33,13 +31,38 @@ logger.log(newLevel, "{BONITA TOOLING LOGGER JSP} new log level set");
 <body>
 <h1>Bonita Live Logger Level Configuration</h1>
 
+<% if (isLoggerInfoOnly) { %>
+Providing logger info only<p>
+
+Logger: <b><%= loggerName %></b><br/>
+Log level: <b><%= originalLogLevel %></b><br/>
+Loggable levels:
+<ul>
+    <li><%= Level.SEVERE %>: <%= logger.isLoggable(Level.SEVERE) %>
+    <li><%= Level.WARNING %>: <%= logger.isLoggable(Level.WARNING) %>
+    <li><%= Level.INFO %>: <%= logger.isLoggable(Level.INFO) %>
+    <li><%= Level.CONFIG %>: <%= logger.isLoggable(Level.CONFIG) %>
+    <li><%= Level.FINE %>: <%= logger.isLoggable(Level.FINE) %>
+    <li><%= Level.FINER %>: <%= logger.isLoggable(Level.FINER) %>
+    <li><%= Level.FINEST %>: <%= logger.isLoggable(Level.FINEST) %>
+</ul>
+
+<% } else {
+    logger.setLevel(Level.parse(loggerLevel));
+    Level newLogLevel = logger.getLevel();
+
+    logger.log(newLogLevel, "{BONITA TOOLING LOGGER JSP} log level set from " + originalLogLevel + " to " + newLogLevel);
+%>
 Requested logger: <b><%= loggerName %></b><br/>
 Requested level: <b><%= loggerLevel %></b>
 <p/>
 
 Actual logger: <b><%= logger.getName() %></b><br/>
 Orig log level: <b><%= originalLogLevel %></b><br/>
-New log level: <b><%= newLevel %></b>
+New log level: <b><%= newLogLevel %></b>
+<% } %>
+
+
 </body>
 
 </html>
