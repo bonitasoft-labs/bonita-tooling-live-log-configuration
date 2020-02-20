@@ -44,7 +44,7 @@ Copy the [logs.jsp](jsp/logs.jsp) file directly in the `BONITA_INSTALLATION_DIRE
 ### Other environments
 
 In your `BONITA_INSTALLATION_DIRECTORY/server/webapps/bonita` create a folder which a random name (this is a poor way to
-obfuscate the place where the admin page is located). On development environment, you cas skip the folder creation
+obfuscate the place where the admin page is located). On development environment, you can skip the folder creation
 
 For instance `lCsjYSTZAEdhnQ7GCl3/QMmRhhkDp8USR5f0fzf` (DO NOT this path, create your own)
 
@@ -53,7 +53,7 @@ For instance `lCsjYSTZAEdhnQ7GCl3/QMmRhhkDp8USR5f0fzf` (DO NOT this path, create
 
 Do a HTTP GET on the `logs.jsp` page  with parameters
 - `loggerName`: full name of the logger whose you want to update the level
-- `loggerLevel`: level of the logger to be updated
+- `loggerLevel`: level of the logger to be updated (if the )
 
 For instance, using the path provided as example in the installation section: http://localhost:8080/bonita/lCsjYSTZAEdhnQ7GCl3/QMmRhhkDp8USR5f0fzf/logs.jsp?loggerName=com.bonitasoft.message.MyLogger&loggerLevel=FINE
 
