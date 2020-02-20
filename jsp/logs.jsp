@@ -89,14 +89,14 @@ Loggable levels:
 <% } else {
     logger.setLevel(Level.parse(loggerLevel));
     Level newLogLevel = logger.getLevel();
-
-    logger.log(newLogLevel, "{BONITA TOOLING LOGGER JSP} log level set from " + originalLogLevel + " to " + newLogLevel);
+	String actualLoggerName = logger.getName();
+    jspLogger.log(newLogLevel, "User '" + userName + "' set the log level of logger " + actualLoggerName + " from " + originalLogLevel + " to " + newLogLevel);
 %>
 Requested logger: <b><%= loggerName %></b><br/>
 Requested level: <b><%= loggerLevel %></b>
 <p/>
 
-Actual logger: <b><%= logger.getName() %></b><br/>
+Actual logger: <b><%= actualLoggerName %></b><br/>
 Orig log level: <b><%= originalLogLevel %></b><br/>
 New log level: <b><%= newLogLevel %></b>
 <% } %>
