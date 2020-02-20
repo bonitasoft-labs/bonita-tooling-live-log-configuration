@@ -56,7 +56,6 @@ or Bonitasoft US, 51 Federal Street, Suite 305, San Francisco, CA 94107
 <h1>Bonita Live Logger Level Configuration</h1>
 
 User: <b><%= userName %></b><br/>
-<b>isAdministrator</b>: <%= isAdministrator %><br/>
 <p>
 
 <% if (isLoggerInfoOnly) {
