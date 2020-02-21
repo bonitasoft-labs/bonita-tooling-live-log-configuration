@@ -2,7 +2,8 @@
 
 Configure Bonita logger level in live environment
 
-- [Context]()
+- [Context](#context)
+- [Contributing and Support](#contributing)
 - [Update with JSP](#jsp)
 
 # Context
@@ -22,18 +23,32 @@ Also remember that depending of the configuration, logs message are written in t
 depending the log handler loggers are associated to. 
 
 
-Tools have been tested with Bonita 7.8.4 Enterprise but should work with earlier versions and Community edition.
+Tools have been tested with Bonita 7.8.4 Enterprise but should work with earlier and later versions and Community
+edition.
 
 
 **Note**: not tested with the Bonita Wildfly Bundle, it may works with minor adjustments
 
 
-# <a name="jsp"></a> The jsp (uggly) way
+# <a name="contributin"></a> Contributing and Support
 
-Not recommended but this is the fastest way especially during development.
+Use the GitHub issues of this repository for any question, bug, feature and enhancement request
 
-**IMPORTANT**: be aware that the jsp is not secured, which means that anybody knowning the path to the page can update
-the log levels of your Bonita Runtime.
+Before submitting a Pull Request, please first open an issue for discussion (except for minor changes like typo fix
+for instance)
+
+
+# <a name="jsp"></a> The jsp way
+
+Advantages
+- easy installation
+- easy customization
+- easy live update
+
+Cons
+- authorization managed directly in the jsp, so be careful when changing it
+- boiler plate code
+
 
 ## Installation
 
@@ -46,10 +61,17 @@ Copy the [logs.jsp](jsp/logs.jsp) file directly in the `BONITA_INSTALLATION_DIRE
 In your `BONITA_INSTALLATION_DIRECTORY/server/webapps/bonita` create a folder which a random name (this is a poor way to
 obfuscate the place where the admin page is located). On development environment, you can skip the folder creation
 
-For instance `lCsjYSTZAEdhnQ7GCl3/QMmRhhkDp8USR5f0fzf` (DO NOT this path, create your own)
+For instance `lCsjYSTZAEdhnQ7GCl3/QMmRhhkDp8USR5f0fzf` (DO NOT USE this path, create your own).
+
+Copy the [logs.jsp](jsp/logs.jsp) in the newly created folder.
 
 
 ## Usage
+
+**Authorization**: you must be logged to Bonita as `Tenant Administrator` or have the `Administrator` profile to
+access to the page
+
+### Update log level
 
 Do a HTTP GET on the `logs.jsp` page  with parameters
 - `loggerName`: full name of the logger whose you want to update the level
@@ -59,10 +81,33 @@ For instance, using the path provided as example in the installation section: ht
 
 The page displays information about the current logger settings and the new settings after changes
 
+**TODO** update screenshot
+
 ![Log configuration with JSP](docs/img/jsp_screenshot.png "Log configuration with JSP")
 
+### Get Current Logger Level configuration
 
-In the bonita.log, you will see something like
+**TODO** explain read-only and update mode + screenshot
+
+purpose:
+check current runtime logger level configuration
+when level is null, display effective level that are loggable
+
+
+### Audit
+
+In the bonita.log, an audit log is always written when the page is accessed like
 ```
 2020-02-18 15:26:16.602 +0100 FINE: com.bonitasoft.message.MyLogger {BONITA TOOLING LOGGER JSP} new log level set
 ```
+Or in case of unauthorized access
+```
+
+```
+
+
+### Known Limitations
+
+- tenant restart: mess classloader, logger level configuration may not be accurate anymore. Restart the server to be
+ able to get correct information in the page
+ 

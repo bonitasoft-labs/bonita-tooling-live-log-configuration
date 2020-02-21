@@ -24,9 +24,9 @@ or Bonitasoft US, 51 Federal Street, Suite 305, San Francisco, CA 94107
 	String userName = (String) session.getAttribute("username");
 	List<String> profiles = apiSession.getProfiles();
 	boolean isAdministrator = profiles.contains("Administrator");
-	// TODO accept tenant administrator
+	boolean isTechnicalUser = apiSession.isTechnicalUser();
 
-	if (!isAdministrator) {
+	if (!isAdministrator && !isTechnicalUser) {
 		jspLogger.log(Level.WARNING, "Non Administrator '" + userName + "' user tried to access to the Logger Level configuration");
 		response.sendError(403);
 		return;
