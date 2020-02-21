@@ -6,10 +6,21 @@ For commercial licensing information, contact:
 Bonitasoft, 32 rue Gustave Eiffel – 38000 Grenoble
 or Bonitasoft US, 51 Federal Street, Suite 305, San Francisco, CA 94107
 -->
+<%@page import="java.net.InetAddress" %>
 <%@page import="java.util.List" %>
 <%@page import="java.util.logging.Level" %>
 <%@page import="java.util.logging.Logger" %>
 <%@page import="org.bonitasoft.engine.session.*" %>
+
+<%!
+private String getHostname() {
+    try {
+        return InetAddress.getLocalHost().getHostName();
+    } catch (final Exception ignored) {
+        return "UNKNOWN";
+    }
+}
+%>
 <%
 	Logger jspLogger = Logger.getLogger("org.bonitasoft.tooling.log.jsp");
 	jspLogger.setLevel(Level.INFO); // ensure logs are generated
@@ -55,6 +66,7 @@ or Bonitasoft US, 51 Federal Street, Suite 305, San Francisco, CA 94107
 <body>
 <h1>Bonita Live Logger Level Configuration</h1>
 
+Host: <b><%= getHostname() %></b><br/>
 User: <b><%= userName %></b><br/>
 <p>
 
