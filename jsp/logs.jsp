@@ -66,18 +66,6 @@ User: <b><%= userName %></b><br/>
 
 Logger: <b><%= loggerName %></b><br/>
 Log level: <b><%= originalLogLevel %></b><br/>
-<p/>
-
-Loggable levels:
-<ul>
-    <li><%= Level.SEVERE %>: <%= logger.isLoggable(Level.SEVERE) %>
-    <li><%= Level.WARNING %>: <%= logger.isLoggable(Level.WARNING) %>
-    <li><%= Level.INFO %>: <%= logger.isLoggable(Level.INFO) %>
-    <li><%= Level.CONFIG %>: <%= logger.isLoggable(Level.CONFIG) %>
-    <li><%= Level.FINE %>: <%= logger.isLoggable(Level.FINE) %>
-    <li><%= Level.FINER %>: <%= logger.isLoggable(Level.FINER) %>
-    <li><%= Level.FINEST %>: <%= logger.isLoggable(Level.FINEST) %>
-</ul>
 
 <% } else {
     logger.setLevel(Level.parse(loggerLevel));
@@ -97,6 +85,19 @@ Actual logger: <b><%= actualLoggerName %></b><br/>
 Orig log level: <b><%= originalLogLevel %></b><br/>
 New log level: <b><%= newLogLevel %></b>
 <% } %>
+
+<p/>
+
+Loggable levels:
+<ul>
+    <li><%= Level.SEVERE %>: <%= logger.isLoggable(Level.SEVERE) %>
+    <li><%= Level.WARNING %>: <%= logger.isLoggable(Level.WARNING) %>
+    <li><%= Level.INFO %>: <%= logger.isLoggable(Level.INFO) %>
+    <li><%= Level.CONFIG %>: <%= logger.isLoggable(Level.CONFIG) %>
+    <li><%= Level.FINE %>: <%= logger.isLoggable(Level.FINE) %>
+    <li><%= Level.FINER %>: <%= logger.isLoggable(Level.FINER) %>
+    <li><%= Level.FINEST %>: <%= logger.isLoggable(Level.FINEST) %>
+</ul>
 
 </body>
 
