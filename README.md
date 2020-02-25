@@ -30,7 +30,7 @@ least for Bonita bundles using Tomcat 8.5, so from Bonita 7.6.x to 7.11.x).
 **Note**: not tested with the Bonita Wildfly Bundle, it may works with minor adjustments. See [#2](https://github.com/bonitasoft-labs/bonita-tooling-live-log-configuration/issues/2)
 
 
-# <a name="contributin"></a> Contributing and Support
+# <a name="contributing"></a> Contributing and Support
 
 Use the GitHub issues of this repository for any question, bug, feature and enhancement request
 
