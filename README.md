@@ -111,7 +111,7 @@ Or in case of unauthorized access
 
 ### Known Limitations
 
-The tools of this repository are unable to get or update logger level of some classes belonging to the Bonita Tenants.
+The JSP is unable to get or update logger level of some classes belonging to the Bonita Tenants.
 
 In particular, for classes related to works, messages or connectors processing. For instance,
 - `org.bonitasoft.engine.message`
