@@ -20,14 +20,14 @@ providing
 - logger level, see [JUL Level](https://docs.oracle.com/javase/8/docs/api/java/util/logging/Level.html) for valid values
 
 Also remember that depending of the configuration, logs message are written in the bonita.log or catalina.log
-depending the log handler loggers are associated to. 
+regarding the log handler loggers are associated to. 
 
 
-Tools have been tested with Bonita 7.8.4 Enterprise but should work with earlier and later versions and Community
-edition.
+Tools have been tested with Bonita 7.8.4 Enterprise but should Bonita Community edition and with other versions (at
+least for Bonita bundles using Tomcat 8.5, so from Bonita 7.6.x to 7.11.x).
 
 
-**Note**: not tested with the Bonita Wildfly Bundle, it may works with minor adjustments
+**Note**: not tested with the Bonita Wildfly Bundle, it may works with minor adjustments. See [#2](https://github.com/bonitasoft-labs/bonita-tooling-live-log-configuration/issues/2)
 
 
 # <a name="contributin"></a> Contributing and Support
@@ -81,33 +81,40 @@ For instance, using the path provided as example in the installation section: ht
 
 The page displays information about the current logger settings and the new settings after changes
 
-**TODO** update screenshot
-
 ![Log configuration with JSP](docs/img/jsp_screenshot.png "Log configuration with JSP")
 
 ### Get Current Logger Level configuration
 
-**TODO** explain read-only and update mode + screenshot
+In this mode, you don't update the logger level but only get the current configuration and the effective levels that
+are loggable
 
-purpose:
-check current runtime logger level configuration
-when level is null, display effective level that are loggable
+Do a HTTP GET on the `logs.jsp` page  with parameters
+- `loggerName`: full name of the logger whose you want to known the level configuration
+
+
+![Read Log configuration with JSP](docs/img/jsp_screenshot_read_only.png "Read log configuration with JSP")
 
 
 ### Audit
 
 In the bonita.log, an audit log is always written when the page is accessed like
 ```
-2020-02-18 15:26:16.602 +0100 FINE: com.bonitasoft.message.MyLogger {BONITA TOOLING LOGGER JSP} new log level set
+2020-02-25 06:40:15.789 +0100 INFO: org.bonitasoft.tooling.log.jsp User 'install' accessed to the Logger Level configuration - Information only
+2020-02-25 06:41:45.462 +0100 INFO: org.bonitasoft.tooling.log.jsp User 'install' set the log level of logger org.bonitasoft from WARNING to INFO
 ```
 Or in case of unauthorized access
 ```
-
+2020-02-25 06:39:55.820 +0100 WARNING: org.bonitasoft.tooling.log.jsp Unauthenticated user tried to access to the Logger Level configuration
+2020-02-25 06:50:11.278 +0100 WARNING: org.bonitasoft.tooling.log.jsp Non Administrator 'user' user tried to access to the Logger Level configuration
 ```
 
 
 ### Known Limitations
 
-- tenant restart: mess classloader, logger level configuration may not be accurate anymore. Restart the server to be
- able to get correct information in the page
- 
+Due to the way JULI manage classloaders, the tools of this repository are unable to get or update logger level of some
+classes belonging to the Bonita Tenants.
+
+In particular, for classes related to works, messages or connectors processing. For instance,
+- `org.bonitasoft.engine.message`
+- `org.bonitasoft.engine.execution.work.MessagesRestartHandler`
+- `org.bonitasoft.engine.work` and `com.bonitasoft.engine.work`
