@@ -111,10 +111,9 @@ Or in case of unauthorized access
 
 ### Known Limitations
 
-Due to the way JULI manage classloaders, the tools of this repository are unable to get or update logger level of some
+Due to the way JULI manages classloader, the tools of this repository are unable to get or update logger level of some
 classes belonging to the Bonita Tenants.
 
 In particular, for classes related to works, messages or connectors processing. For instance,
 - `org.bonitasoft.engine.message`
-- `org.bonitasoft.engine.execution.work.MessagesRestartHandler`
 - `org.bonitasoft.engine.work` and `com.bonitasoft.engine.work`
