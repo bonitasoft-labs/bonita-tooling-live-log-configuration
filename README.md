@@ -1,5 +1,9 @@
 # bonita-tooling-live-log-configuration
 
+| ⚠️ Archived on 2023-02-14 ⚠️ | Recent Bonita versions use log4j2 instead of JUL, the log configuration can be live-updated natively. See the [Bonita log4J2 configuration](https://documentation.bonitasoft.com/bonita/2022.2/setup-dev-environment/logging#_logging_configuration) for more details. |
+| -------- | -------- |
+
+
 Configure Bonita logger level in live environment
 
 - [Context](#context)
